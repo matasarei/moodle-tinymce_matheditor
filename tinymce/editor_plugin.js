@@ -50,7 +50,7 @@
                 editor.windowManager.open({
                     file : editor.getParam("moodle_plugin_base") + 'matheditor/matheditor.php?lang=' + lang,
                     width : 540,
-                    height : 301,
+                    height : 360,
                     inline : 1,
                     popup_css : false
                 }, {
