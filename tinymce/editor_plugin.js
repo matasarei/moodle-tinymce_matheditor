@@ -25,14 +25,19 @@
          init : function(editor, url) {
             lang = tinymce.activeEditor.getParam('language');
             if(editor.getParam('matheditor_latexserver'))
-                var latexRenderer = editor.getParam('tinymce_matheditor/latexserver');
+                var latexRenderer = editor.getParam('matheditor_latexserver');
             else
                 var latexRenderer = 'http://localhost/cgi-bin/mathtex.cgi?';
 
             var imageUrl = function(latex) {
+                var latexUrl = latex;
+                if (!latexRenderer.match(/\.cgi/i)) {
+                    latexUrl = encodeURIComponent(latex);
+                }
+
                 return '<img class="matheditor" '
                 + 'style="vertical-align:middle" '
-                + 'src="' + latexRenderer + latex + '" '
+                + 'src="' + latexRenderer + latexUrl + '" '
                 + 'alt="' + latex + '"/>';
             };
 
