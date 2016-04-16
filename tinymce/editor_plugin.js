@@ -44,7 +44,7 @@
             // Recognize that a user has clicked on the image, and pop-up the mathquill dialog box
             var updateEventHandlers = function(editor) {
                 // Initialize event-handlers for all math elements
-                Y.one(editor.getDoc()).all('.matheditor').on('click', function(e) {
+                Y.one(editor.getDoc()).all('.matheditor').detach('click').on('click', function(e) {
                     var latex = e.target.getAttribute('alt');
                     editor.execCommand('mceMathEditor', latex);
                 });
@@ -95,8 +95,9 @@
                     var latex = equation.getHTML().replace(/\\\(|\\\)/g, '');
                     equation.replace(imageUrl(latex));
                 }
+                updateEventHandlers(editor);
             };
-            editor.onLoadContent.add(convertLatexToImage);
+            //editor.onLoadContent.add(convertLatexToImage);
             editor.onSetContent.add(convertLatexToImage);
 
             // Use mathquill-rendered-latex when getting the contents of the document
@@ -112,9 +113,11 @@
                 }
             });
 
-            editor.onInit.add(function() {
-                updateEventHandlers(editor);
+            // Node change events
+            editor.onNodeChange.add(function(ed, cm, n) {
+                cm.setActive('matheditor', n.className == 'matheditor')
             });
+
         },
 
         /**
