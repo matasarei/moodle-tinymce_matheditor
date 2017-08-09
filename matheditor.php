@@ -22,7 +22,7 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/lib/editor/tinymce/plugins/matheditor/matheditor.php');
 $PAGE->requires->jquery();
 $PAGE->set_title(get_string('matheditor:desc', 'tinymce_matheditor'));
-$PAGE->set_pagelayout('popup');
+$PAGE->set_pagelayout('embedded');
 
 $editor = get_texteditor('tinymce');
 $plugin = $editor->get_plugin('matheditor');
